@@ -8,6 +8,18 @@ import Timer from "@/components/Timer";
 import BattleCard from "@/components/BattleCard";
 import LoadingOverlay from "@/components/LoadingOverlay";
 import { Battle } from "@/lib/types";
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === 'POST') {
+    // Your POST logic here
+    res.status(200).json({ message: 'Battle created!' });
+  } else {
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
+}
+
 
 export default function BattlePage() {
   const { id } = useParams();
@@ -163,3 +175,4 @@ export default function BattlePage() {
     </div>
   );
 }
+
